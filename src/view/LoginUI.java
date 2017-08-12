@@ -21,6 +21,7 @@ import view.SetAdminUI.StyledButtonUI;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -42,9 +43,10 @@ public class LoginUI extends JFrame {
 
 		setTitle("Payroll System");
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
+				.getImage("C:\\Users\\db2admin\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
 		background = new JLabel();
-		background.setIcon(new ImageIcon("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
+		background
+				.setIcon(new ImageIcon("C:\\Users\\db2admin\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
 		background.setBounds(0, 0, 761, 452);
 		setTitle("Product Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,8 +81,15 @@ public class LoginUI extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new MainUI();
-				dispose();
+
+				if (userTF.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please input username", "Error", JOptionPane.ERROR_MESSAGE);
+				} else if (passPF.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please input password", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					new MainUI();
+					dispose();
+				}
 			}
 		});
 		btnLogin.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -103,6 +112,12 @@ public class LoginUI extends JFrame {
 		btnExit.setBounds(457, 286, 107, 35);
 		contentPane.add(btnExit);
 
+		JLabel lblForgotPassword = new JLabel("Forgot Password?");
+		lblForgotPassword.setBounds(141, 250, 111, 23);
+		lblForgotPassword.setForeground(Color.WHITE);
+		lblForgotPassword.setToolTipText("Contact admin 09187654321");
+		contentPane.add(lblForgotPassword);
+		
 		contentPane.add(background);
 		setVisible(true);
 
@@ -123,6 +138,7 @@ public class LoginUI extends JFrame {
 		int dy = centerPoint.y - windowSize.height / 2;
 		setLocation(dx, dy);
 	}
+
 	class StyledButtonUI extends BasicButtonUI {
 
 		@Override
