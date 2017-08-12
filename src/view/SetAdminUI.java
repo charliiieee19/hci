@@ -72,7 +72,7 @@ public class SetAdminUI extends JFrame {
 		contentPane.add(lblFullname);
 
 		fullTF = new JTextField();
-		fullTF.setBounds(284, 36, 152, 20);
+		fullTF.setBounds(284, 36, 151, 20);
 		fullTF.setEditable(false);
 		contentPane.add(fullTF);
 		fullTF.setColumns(10);
@@ -152,7 +152,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnAdd.setBackground(Color.BLUE);
+		btnAdd.setBackground(Color.DARK_GRAY);
 		btnAdd.setForeground(Color.white);
 		// customize the button with your own look
 		btnAdd.setUI(new StyledButtonUI());
@@ -168,7 +168,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnEdit.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnEdit.setBackground(Color.BLUE);
+		btnEdit.setBackground(Color.DARK_GRAY);
 		btnEdit.setForeground(Color.white);
 		// customize the button with your own look
 		btnEdit.setUI(new StyledButtonUI());
@@ -181,7 +181,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnDelete.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnDelete.setBackground(Color.BLUE);
+		btnDelete.setBackground(Color.DARK_GRAY);
 		btnDelete.setForeground(Color.white);
 		// customize the button with your own look
 		btnDelete.setUI(new StyledButtonUI());
@@ -195,7 +195,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnFirst.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnFirst.setBackground(Color.BLUE);
+		btnFirst.setBackground(Color.DARK_GRAY);
 		btnFirst.setForeground(Color.white);
 		// customize the button with your own look
 		btnFirst.setUI(new StyledButtonUI());
@@ -208,7 +208,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnPrev.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnPrev.setBackground(Color.BLUE);
+		btnPrev.setBackground(Color.DARK_GRAY);
 		btnPrev.setForeground(Color.white);
 		// customize the button with your own look
 		btnPrev.setUI(new StyledButtonUI());
@@ -223,7 +223,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnNext.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnNext.setBackground(Color.BLUE);
+		btnNext.setBackground(Color.DARK_GRAY);
 		btnNext.setForeground(Color.white);
 		// customize the button with your own look
 		btnNext.setUI(new StyledButtonUI());
@@ -236,7 +236,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnLast.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnLast.setBackground(Color.BLUE);
+		btnLast.setBackground(Color.DARK_GRAY);
 		btnLast.setForeground(Color.white);
 		// customize the button with your own look
 		btnLast.setUI(new StyledButtonUI());
@@ -251,7 +251,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnBack.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnBack.setBackground(Color.BLUE);
+		btnBack.setBackground(Color.DARK_GRAY);
 		btnBack.setForeground(Color.white);
 		btnBack.setUI(new StyledButtonUI());
 		btnBack.setBounds(408, 308, 71, 23);
@@ -267,7 +267,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnSave.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnSave.setBackground(Color.BLUE);
+		btnSave.setBackground(Color.DARK_GRAY);
 		btnSave.setForeground(Color.white);
 		btnSave.setUI(new StyledButtonUI());
 		btnSave.setBounds(318, 308, 78, 23);
