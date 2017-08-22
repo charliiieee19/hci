@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,15 +34,20 @@ public class SetAdminUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField userTF;
 	private JTextField fullTF;
-
+	private JLabel background;
 	private JCheckBox MPview, PRview, MPadd, MPedit, MPdelete, SAview, SAadd, SAedit, SAdelete;
-	private JButton btnBack;
+	private JButton btnBack, btnSave, btnCancel;
 	static Boolean hasAdd = false, hasEdit = false, hasDelete = false;
 
 	public SetAdminUI() {
-
+		setTitle("Set Admin");
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ann.jpg"));
+		background = new JLabel();
+		background.setIcon(new ImageIcon("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ann.jpg"));
+		background.setBounds(0, 0, 656, 388);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 629, 399);
+		setBounds(100, 100, 672, 427);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,7 +72,7 @@ public class SetAdminUI extends JFrame {
 		contentPane.add(lblFullname);
 
 		fullTF = new JTextField();
-		fullTF.setBounds(284, 36, 152, 20);
+		fullTF.setBounds(284, 36, 151, 20);
 		fullTF.setEditable(false);
 		contentPane.add(fullTF);
 		fullTF.setColumns(10);
@@ -145,7 +152,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnAdd.setBackground(Color.BLUE);
+		btnAdd.setBackground(Color.DARK_GRAY);
 		btnAdd.setForeground(Color.white);
 		// customize the button with your own look
 		btnAdd.setUI(new StyledButtonUI());
@@ -155,10 +162,14 @@ public class SetAdminUI extends JFrame {
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnSave.setVisible(true);
+				btnCancel.setVisible(true);
+				enableTF();
+				editCB();
 			}
 		});
 		btnEdit.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnEdit.setBackground(Color.BLUE);
+		btnEdit.setBackground(Color.DARK_GRAY);
 		btnEdit.setForeground(Color.white);
 		// customize the button with your own look
 		btnEdit.setUI(new StyledButtonUI());
@@ -171,7 +182,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnDelete.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnDelete.setBackground(Color.BLUE);
+		btnDelete.setBackground(Color.DARK_GRAY);
 		btnDelete.setForeground(Color.white);
 		// customize the button with your own look
 		btnDelete.setUI(new StyledButtonUI());
@@ -185,7 +196,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnFirst.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnFirst.setBackground(Color.BLUE);
+		btnFirst.setBackground(Color.DARK_GRAY);
 		btnFirst.setForeground(Color.white);
 		// customize the button with your own look
 		btnFirst.setUI(new StyledButtonUI());
@@ -198,7 +209,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnPrev.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnPrev.setBackground(Color.BLUE);
+		btnPrev.setBackground(Color.DARK_GRAY);
 		btnPrev.setForeground(Color.white);
 		// customize the button with your own look
 		btnPrev.setUI(new StyledButtonUI());
@@ -213,7 +224,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnNext.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnNext.setBackground(Color.BLUE);
+		btnNext.setBackground(Color.DARK_GRAY);
 		btnNext.setForeground(Color.white);
 		// customize the button with your own look
 		btnNext.setUI(new StyledButtonUI());
@@ -226,7 +237,7 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnLast.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnLast.setBackground(Color.BLUE);
+		btnLast.setBackground(Color.DARK_GRAY);
 		btnLast.setForeground(Color.white);
 		// customize the button with your own look
 		btnLast.setUI(new StyledButtonUI());
@@ -241,12 +252,48 @@ public class SetAdminUI extends JFrame {
 			}
 		});
 		btnBack.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnBack.setBackground(Color.BLUE);
+		btnBack.setBackground(Color.DARK_GRAY);
 		btnBack.setForeground(Color.white);
 		btnBack.setUI(new StyledButtonUI());
-		btnBack.setBounds(402, 308, 75, 23);
+		btnBack.setBounds(408, 308, 71, 23);
+		// 408, 274, 71, 23
 		contentPane.add(btnBack);
 
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				disableTF();
+				disableCB();
+				btnSave.setVisible(false);
+				btnCancel.setVisible(false);
+			}
+		});
+		btnSave.setFont(new Font("Calibri", Font.BOLD, 14));
+		btnSave.setBackground(Color.DARK_GRAY);
+		btnSave.setForeground(Color.white);
+		btnSave.setUI(new StyledButtonUI());
+		btnSave.setBounds(231, 308, 78, 23);
+		btnSave.setVisible(false);
+		contentPane.add(btnSave);
+
+		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				disableTF();
+				disableCB();
+				btnSave.setVisible(false);
+				btnCancel.setVisible(false);
+			}
+		});
+		btnCancel.setFont(new Font("Calibri", Font.BOLD, 14));
+		btnCancel.setBackground(Color.DARK_GRAY);
+		btnCancel.setForeground(Color.white);
+		btnCancel.setUI(new StyledButtonUI());
+		btnCancel.setBounds(318, 308, 78, 23);
+		btnCancel.setVisible(false);
+		contentPane.add(btnCancel);
+
+		contentPane.add(background);
 		setVisible(true);
 	}
 
@@ -292,5 +339,39 @@ public class SetAdminUI extends JFrame {
 	public static void main(String[] args) {
 		new SetAdminUI();
 
+	}
+
+	public void enableTF() {
+		userTF.setEditable(true);
+		fullTF.setEditable(true);
+	}
+
+	public void disableTF() {
+		userTF.setEditable(false);
+		fullTF.setEditable(false);
+	}
+
+	public void editCB() {
+		PRview.setEnabled(true);
+		MPview.setEnabled(true);
+		MPadd.setEnabled(true);
+		MPedit.setEnabled(true);
+		MPdelete.setEnabled(true);
+		SAview.setEnabled(true);
+		SAadd.setEnabled(true);
+		SAedit.setEnabled(true);
+		SAdelete.setEnabled(true);
+	}
+
+	public void disableCB() {
+		PRview.setEnabled(false);
+		MPview.setEnabled(false);
+		MPadd.setEnabled(false);
+		MPedit.setEnabled(false);
+		MPdelete.setEnabled(false);
+		SAview.setEnabled(false);
+		SAadd.setEnabled(false);
+		SAedit.setEnabled(false);
+		SAdelete.setEnabled(false);
 	}
 }

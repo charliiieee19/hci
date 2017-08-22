@@ -1,65 +1,25 @@
 package view;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
 
-public class TableExample extends JFrame
-{
-    public TableExample()
-    {
-        //headers for the table
-        String[] columns = new String[] {
-            "Id", "Name", "Hourly Rate", "Part Time"
-        };
-        
-        //actual data for the table in a 2d array
-        Object[][] data = new Object[][] {
-            {1, "John", 40.0, false },
-            {2, "Rambo", 70.0, false },
-            {3, "Zorro", 60.0, true },
-        };
-        
-        final Class[] columnClass = new Class[] {
-            Integer.class, String.class, Double.class, Boolean.class
-        };
+public class TableExample {
+	JFrame f;
 
-        //create table model with data
-        DefaultTableModel model = new DefaultTableModel(data, columns) {
+	TableExample() {
+		f = new JFrame();
+		String data[][] = { { "10001", "Razer Mouse", "2,500", "1 week" },
+				{ "10002", "Razer Keyboard", "4,000", "2 weeks" }, { "10003", "Acer Aspire Laptop", "27,000", "1 week" },
+				{ "10004", "Google Pixel Phone", "10,500", "1 month" }};
+		String column[] = { "Product ID", "Product Name", "Price", "Warranty" };
+		JTable jt = new JTable(data, column);
+		jt.setBounds(30, 40, 200, 300);
+		JScrollPane sp = new JScrollPane(jt);
+		f.add(sp);
+		f.setSize(300, 400);
+		f.setVisible(true);
+	}
 
-            @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;
-            }
-
-            @Override
-            public Class<?> getColumnClass(int columnIndex)
-            {
-                return columnClass[columnIndex];
-            }
-        };
-        
-        JTable table = new JTable(model);
-        
-        //add the table to the frame
-        this.add(new JScrollPane(table));
-        
-        this.setTitle("Table Example");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-        this.pack();
-        this.setVisible(true);
-    }
-    
-    public static void main(String[] args)
-    {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new TableExample();
-            }
-        });
-    }    
+	public static void main(String[] args) {
+		new TableExample();
+	}
 }

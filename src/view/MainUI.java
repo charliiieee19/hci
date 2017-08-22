@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -51,6 +52,8 @@ public class MainUI extends JFrame {
 		JButton btnMain = new JButton("Maintain Product");
 		btnMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new MaintainUI();
+				dispose();
 			}
 		});
 		btnMain.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -89,8 +92,17 @@ public class MainUI extends JFrame {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new LoginUI();
-				dispose();
+
+				int dialogButton = JOptionPane.showConfirmDialog(null, "Are you sure to Log out?", "WARNING",
+						JOptionPane.YES_NO_OPTION);
+
+				if (dialogButton == JOptionPane.YES_OPTION) {
+					new LoginUI();
+					dispose();
+				} else {
+					disableEvents(dialogButton);
+				}
+
 			}
 		});
 		btnLogout.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -119,6 +131,7 @@ public class MainUI extends JFrame {
 		int dy = centerPoint.y - windowSize.height / 2;
 		setLocation(dx, dy);
 	}
+
 	class StyledButtonUI extends BasicButtonUI {
 
 		@Override

@@ -21,6 +21,7 @@ import view.SetAdminUI.StyledButtonUI;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -79,8 +80,15 @@ public class LoginUI extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new MainUI();
-				dispose();
+
+				if (userTF.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please input username", "Error", JOptionPane.ERROR_MESSAGE);
+				} else if (passPF.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please input password", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					new MainUI();
+					dispose();
+				}
 			}
 		});
 		btnLogin.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -93,7 +101,14 @@ public class LoginUI extends JFrame {
 		btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				int dialogButton = JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "Warning",
+						JOptionPane.YES_NO_OPTION);
+
+				if (dialogButton == JOptionPane.YES_OPTION) {
+					dispose();
+				} else {
+					disableEvents(dialogButton);
+				}
 			}
 		});
 		btnExit.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -102,6 +117,12 @@ public class LoginUI extends JFrame {
 		btnExit.setUI(new StyledButtonUI());
 		btnExit.setBounds(457, 286, 107, 35);
 		contentPane.add(btnExit);
+
+		JLabel lblForgotPassword = new JLabel("Forgot Password?");
+		lblForgotPassword.setBounds(141, 250, 111, 23);
+		lblForgotPassword.setForeground(Color.WHITE);
+		lblForgotPassword.setToolTipText("Contact admin 09187654321");
+		contentPane.add(lblForgotPassword);
 
 		contentPane.add(background);
 		setVisible(true);
@@ -123,6 +144,7 @@ public class LoginUI extends JFrame {
 		int dy = centerPoint.y - windowSize.height / 2;
 		setLocation(dx, dy);
 	}
+
 	class StyledButtonUI extends BasicButtonUI {
 
 		@Override
