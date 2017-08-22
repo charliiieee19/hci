@@ -102,14 +102,7 @@ public class LoginUI extends JFrame {
 		btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int dialogButton = JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "Warning",
-						JOptionPane.YES_NO_OPTION);
-
-				if (dialogButton == JOptionPane.YES_OPTION) {
-					dispose();
-				} else {
-					disableEvents(dialogButton);
-				}
+				dispose();
 			}
 		});
 		btnExit.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -124,11 +117,7 @@ public class LoginUI extends JFrame {
 		lblForgotPassword.setForeground(Color.WHITE);
 		lblForgotPassword.setToolTipText("Contact admin 09187654321");
 		contentPane.add(lblForgotPassword);
-<<<<<<< HEAD
-
-=======
 		
->>>>>>> 7adf33179aed1dc7d8a569f51c1eb7ab8d45dc79
 		contentPane.add(background);
 		setVisible(true);
 
