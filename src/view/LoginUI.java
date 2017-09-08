@@ -43,10 +43,9 @@ public class LoginUI extends JFrame {
 
 		setTitle("Payroll System");
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("C:\\Users\\db2admin\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
+				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
 		background = new JLabel();
-		background
-				.setIcon(new ImageIcon("C:\\Users\\db2admin\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
+		background.setIcon(new ImageIcon("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ZenMate.jpg"));
 		background.setBounds(0, 0, 761, 452);
 		setTitle("Product Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,10 +81,9 @@ public class LoginUI extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (userTF.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Please input username", "Error", JOptionPane.ERROR_MESSAGE);
-				} else if (passPF.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Please input password", "Error", JOptionPane.ERROR_MESSAGE);
+				if (userTF.getText().length() == 0 || (passPF.getText().length() == 0)) {
+					JOptionPane.showMessageDialog(null, "Please Fill up the fields.", "Error", JOptionPane.ERROR_MESSAGE);
+
 				} else {
 					new MainUI();
 					dispose();
@@ -124,11 +122,7 @@ public class LoginUI extends JFrame {
 		lblForgotPassword.setForeground(Color.WHITE);
 		lblForgotPassword.setToolTipText("Contact admin 09187654321");
 		contentPane.add(lblForgotPassword);
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 7adf33179aed1dc7d8a569f51c1eb7ab8d45dc79
 		contentPane.add(background);
 		setVisible(true);
 

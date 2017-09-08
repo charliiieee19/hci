@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -27,6 +28,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class MainUI extends JFrame {
@@ -66,6 +69,24 @@ public class MainUI extends JFrame {
 		JButton btnPR = new JButton("Print Reports");
 		btnPR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String filepath = "C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\pdf\\file.pdf";
+				File file = new File(filepath);
+				if (file.toString().endsWith(".pdf"))
+					try {
+						Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				else {
+					Desktop desktop = Desktop.getDesktop();
+					try {
+						desktop.open(file);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		btnPR.setFont(new Font("Calibri", Font.BOLD, 14));
