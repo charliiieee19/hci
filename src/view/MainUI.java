@@ -1,10 +1,8 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +10,15 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,18 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-import view.LoginUI.StyledButtonUI;
-
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
-
+@SuppressWarnings("serial")
 public class MainUI extends JFrame {
 
 	private JPanel contentPane;
@@ -40,7 +35,7 @@ public class MainUI extends JFrame {
 	public MainUI() {
 		setTitle("Main Menu");
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\bg.png"));
+				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\settings.png"));
 		background = new JLabel();
 		background.setIcon(new ImageIcon("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\bg.png"));
 		background.setBounds(0, 0, 665, 425);
@@ -135,11 +130,6 @@ public class MainUI extends JFrame {
 
 		contentPane.add(background);
 		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new MainUI();
-
 	}
 
 	private void centerFrame() {

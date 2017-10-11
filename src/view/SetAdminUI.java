@@ -1,48 +1,54 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.TexturePaint;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicButtonUI;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.AbstractBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicButtonUI;
 
+@SuppressWarnings("serial")
 public class SetAdminUI extends JFrame {
-
+	private static final TexturePaint TEXTURE = makeCheckerTexture();
 	private JPanel contentPane;
 	private JTextField userTF;
-	private JTextField fullTF;
 	private JLabel background;
 	private JCheckBox MPview, PRview, MPadd, MPedit, MPdelete, SAview, SAadd, SAedit, SAdelete;
 	private JButton btnBack, btnSave, btnCancel;
 	static Boolean hasAdd = false, hasEdit = false, hasDelete = false;
+	private JTextField fullTF;
 
 	public SetAdminUI() {
 		setTitle("Set Admin");
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ann.jpg"));
+				.getImage("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\settings.png"));
 		background = new JLabel();
 		background.setIcon(new ImageIcon("C:\\Users\\Charlie\\eclipse-workspace\\hci\\src\\view\\Images\\ann.jpg"));
 		background.setBounds(0, 0, 656, 388);
@@ -55,27 +61,38 @@ public class SetAdminUI extends JFrame {
 		contentPane.setBackground(Color.black);
 		centerFrame();
 
-		userTF = new JTextField();
-		userTF.setBounds(284, 11, 151, 20);
+		userTF = new JTextField() {
+			protected void paintComponent(Graphics g) {
+				if (!isOpaque() && getBorder() instanceof RoundedCornerBorder) {
+					Graphics2D g2 = (Graphics2D) g.create();
+					g2.setPaint(getBackground());
+					g2.fill(((RoundedCornerBorder) getBorder()).getBorderShape(0, 0, getWidth() - 1, getHeight() - 1));
+					g2.dispose();
+				}
+				super.paintComponent(g);
+			}
+
+			@Override
+			public void updateUI() {
+				super.updateUI();
+				setOpaque(false);
+				setBorder(new RoundedCornerBorder());
+			}
+		};
+		userTF.setBounds(252, 11, 212, 23);
 		userTF.setEditable(false);
 		contentPane.add(userTF);
 		userTF.setColumns(10);
 
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(174, 14, 71, 14);
+		lblUsername.setBounds(147, 15, 71, 14);
 		lblUsername.setForeground(Color.white);
 		contentPane.add(lblUsername);
 
 		JLabel lblFullname = new JLabel("Fullname");
-		lblFullname.setBounds(174, 39, 71, 14);
+		lblFullname.setBounds(147, 49, 71, 14);
 		lblFullname.setForeground(Color.white);
 		contentPane.add(lblFullname);
-
-		fullTF = new JTextField();
-		fullTF.setBounds(284, 36, 151, 20);
-		fullTF.setEditable(false);
-		contentPane.add(fullTF);
-		fullTF.setColumns(10);
 
 		JLabel lblView = new JLabel("View Reports");
 		lblView.setBounds(151, 86, 78, 20);
@@ -83,7 +100,7 @@ public class SetAdminUI extends JFrame {
 		contentPane.add(lblView);
 
 		PRview = new JCheckBox("View");
-		PRview.setBounds(148, 113, 97, 23);
+		PRview.setBounds(148, 113, 87, 23);
 		PRview.setBackground(Color.black);
 		PRview.setEnabled(false);
 		contentPane.add(PRview);
@@ -149,6 +166,11 @@ public class SetAdminUI extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnSave.setVisible(true);
+				btnCancel.setVisible(true);
+				enableTF();
+				clearTF();
+				editCB();
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -192,6 +214,8 @@ public class SetAdminUI extends JFrame {
 		JButton btnFirst = new JButton("<<");
 		btnFirst.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				userTF.setText("Charlie19");
+				fullTF.setText("Charles Bermudez");
 
 			}
 		});
@@ -206,6 +230,8 @@ public class SetAdminUI extends JFrame {
 		JButton btnPrev = new JButton("<");
 		btnPrev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				userTF.setText("Charlie19");
+				fullTF.setText("Charles Bermudez");
 			}
 		});
 		btnPrev.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -220,6 +246,8 @@ public class SetAdminUI extends JFrame {
 		btnNext.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				userTF.setText("WarMachineXX");
+				fullTF.setText("Cody Rhodes");
 
 			}
 		});
@@ -234,6 +262,8 @@ public class SetAdminUI extends JFrame {
 		JButton btnLast = new JButton(">>");
 		btnLast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				userTF.setText("WarMachineXX");
+				fullTF.setText("Cody Rhodes");
 			}
 		});
 		btnLast.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -281,6 +311,7 @@ public class SetAdminUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				disableTF();
 				disableCB();
+				display();
 				btnSave.setVisible(false);
 				btnCancel.setVisible(false);
 			}
@@ -293,6 +324,29 @@ public class SetAdminUI extends JFrame {
 		btnCancel.setVisible(false);
 		contentPane.add(btnCancel);
 
+		fullTF = new JTextField() {
+			protected void paintComponent(Graphics g) {
+				if (!isOpaque() && getBorder() instanceof RoundedCornerBorder) {
+					Graphics2D g2 = (Graphics2D) g.create();
+					g2.setPaint(getBackground());
+					g2.fill(((RoundedCornerBorder) getBorder()).getBorderShape(0, 0, getWidth() - 1, getHeight() - 1));
+					g2.dispose();
+				}
+				super.paintComponent(g);
+			}
+
+			@Override
+			public void updateUI() {
+				super.updateUI();
+				setOpaque(false);
+				setBorder(new RoundedCornerBorder());
+			}
+		};
+		fullTF.setEditable(false);
+		fullTF.setColumns(10);
+		fullTF.setBounds(252, 45, 212, 23);
+		contentPane.add(fullTF);
+		display();
 		contentPane.add(background);
 		setVisible(true);
 	}
@@ -336,11 +390,6 @@ public class SetAdminUI extends JFrame {
 		}
 	}
 
-	public static void main(String[] args) {
-		new SetAdminUI();
-
-	}
-
 	public void enableTF() {
 		userTF.setEditable(true);
 		fullTF.setEditable(true);
@@ -349,6 +398,16 @@ public class SetAdminUI extends JFrame {
 	public void disableTF() {
 		userTF.setEditable(false);
 		fullTF.setEditable(false);
+	}
+
+	public void clearTF() {
+		userTF.setText("");
+		fullTF.setText("");
+	}
+
+	public void display() {
+		userTF.setText("Charlie19");
+		fullTF.setText("Charles Bermudez");
 	}
 
 	public void editCB() {
@@ -373,5 +432,69 @@ public class SetAdminUI extends JFrame {
 		SAadd.setEnabled(false);
 		SAedit.setEnabled(false);
 		SAdelete.setEnabled(false);
+	}
+
+	class RoundedCornerBorder extends AbstractBorder {
+		private final Color ALPHA_ZERO = new Color(0x0, true);
+
+		@Override
+		public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			Shape border = getBorderShape(x, y, width - 1, height - 1);
+			g2.setPaint(ALPHA_ZERO);
+			// Area corner = new Area(border.getBounds2D());
+			Area corner = new Area(new Rectangle2D.Double(x, y, width, height));
+			corner.subtract(new Area(border));
+			g2.fill(corner);
+
+			g2.setPaint(Color.GRAY);
+			g2.draw(border);
+			g2.dispose();
+		}
+
+		public Shape getBorderShape(int x, int y, int w, int h) {
+			int r = h; // h / 2;
+			return new RoundRectangle2D.Double(x, y, w, h, r, r);
+		}
+
+		@Override
+		public Insets getBorderInsets(Component c) {
+			return new Insets(4, 8, 4, 8);
+		}
+
+		@Override
+		public Insets getBorderInsets(Component c, Insets insets) {
+			insets.set(4, 8, 4, 8);
+			return insets;
+		}
+	}
+
+	private static TexturePaint makeCheckerTexture() {
+		int cs = 6;
+		int sz = cs * cs;
+		BufferedImage img = new BufferedImage(sz, sz, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = img.createGraphics();
+		g2.setPaint(new Color(100, 100, 100, 50));
+		g2.fillRect(0, 0, sz, sz);
+		for (int i = 0; i * cs < sz; i++) {
+			for (int j = 0; j * cs < sz; j++) {
+				if ((i + j) % 2 == 0) {
+					g2.fillRect(i * cs, j * cs, cs, cs);
+				}
+			}
+		}
+		g2.dispose();
+		return new TexturePaint(img, new Rectangle(sz, sz));
+	}
+
+	protected void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		if (!isOpaque()) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			g2.setPaint(TEXTURE);
+			g2.fillRect(0, 0, getWidth(), getHeight());
+			g2.dispose();
+		}
 	}
 }
